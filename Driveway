@@ -1,0 +1,35 @@
+public class Driveway {
+ private DrivewayNode entrance;
+
+  public Driveway() {
+    entrance = null;
+
+  }
+
+  public void addCar(Car car) {
+    DrivewayNode drivewayNode = new DrivewayNode(car);
+    if (entrance == null) {
+      entrance = drivewayNode;
+
+    } 
+
+    else {
+      drivewayNode.link = entrance;
+      entrance = drivewayNode;
+
+    }
+        
+  }
+
+  public Car removeCar() {
+    if (entrance == null) {
+      throw new IllegalArgumentException("Empty Driveway");
+      
+    }
+    Car removed = entrance.getCar();
+    entrance = entrance.link;
+    return removed;
+
+    }
+
+}
