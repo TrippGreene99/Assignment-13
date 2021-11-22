@@ -1,0 +1,21 @@
+public class DrivewayNode {
+  private Car car;
+  public DrivewayNode link;
+
+  public DrivewayNode() {
+    link = null;
+        
+  }
+
+  public DrivewayNode(Car car) {
+    this.car = car;
+    link = null;
+    
+  }
+
+  public Car getCar() {
+    return car;
+
+  }
+
+}
