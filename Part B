@@ -1,0 +1,124 @@
+class Node{
+    private String task;
+    public Node link;
+
+    public Node(String task){
+         this.task = task;
+         this.link = null;
+
+    }
+
+    public String getTask(){
+        return this.task;
+        
+    }
+
+
+
+}
+
+class LinkedList{
+    public Node head;
+    private Node tail;
+
+    public LinkedList() {
+        head = null;
+        tail = null;
+    }
+
+    public boolean isEmpty(){
+        if(head == null)return true;
+        return false;
+    }
+
+
+    public void addTask(String task){
+        Node newTaksNode = new Node(task);
+        if(isEmpty()){
+            head = newTaksNode;
+            tail = newTaksNode;
+            return;
+        }
+        else{
+            // link this new node to tail
+            tail.link = newTaksNode;
+            // update the tail node
+            tail = newTaksNode;
+        }
+        return;
+    }
+
+
+    public String nextTask() throws Exception{
+         if(head == null){
+             throw new Exception("No tasks");
+         }
+         String removedTask = head.getTask();
+         head  = head.link;
+         return removedTask;
+    }
+}
+
+
+class PriorityQueue{
+    private LinkedList[] linkedLists = new LinkedList[3];
+
+    public PriorityQueue() {
+         for(int i =0 ; i < 3; i++){
+             linkedLists[i] = new LinkedList();
+         }
+    }
+
+
+    public void addTask(String task,String priority){
+        
+        if(priority.equals("high")){
+            linkedLists[0].addTask(task);
+        }
+        else if(priority.equals("medium")){
+            linkedLists[1].addTask(task);
+        }
+        else{
+            linkedLists[2].addTask(task);
+        }
+        return;
+    }
+    public String getNextTask() throws Exception{
+         if(linkedLists[0].isEmpty() == false){
+             return linkedLists[0].nextTask();
+         }
+         if(linkedLists[1].isEmpty() == false){
+             return linkedLists[1].nextTask();
+         }
+         if(linkedLists[2].isEmpty() == false){
+             return linkedLists[2].nextTask();
+         }
+         return "No tasks left";
+    }
+
+}
+
+
+public class Main{
+    public static void main(String[] args) {
+        PriorityQueue myTasks = new PriorityQueue();
+        myTasks.addTask("Rest & Relax over break", "high");
+        myTasks.addTask("Rate my prof on ratemyprofessor", "low");
+        myTasks.addTask("Do course evaluation for CSE1322", "medium");
+        myTasks.addTask("Study for CSE1322L Lab Final", "high");
+        myTasks.addTask("Plan trip home for holidays", "low");
+        myTasks.addTask("Study for CSE1322 Final", "high");
+        myTasks.addTask("Do course evaluation for CSE1322L", "medium");
+        try{
+            for(int i=0;i<8;i++){
+                System.out.println(myTasks.getNextTask());
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
+}
